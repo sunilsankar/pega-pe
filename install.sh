@@ -23,8 +23,6 @@ systemctl restart postgresql
 systemctl enable postgresql
 sudo mkdir -p /opt
 sudo cd /opt
-sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
-sudo tar -zxvf apache-tomcat-9.0.63.tar.gz
-sudo cd /opt/apache-tomcat-9.0.63/lib
+sudo wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.14/bin/apache-tomcat-8.5.14.tar.gz 
 sudo wget https://jdbc.postgresql.org/download/postgresql-42.3.6.jar
 
