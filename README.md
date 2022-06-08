@@ -70,6 +70,9 @@ PRPC_PE.jar and then you extract PersonalEdition.zip and then under resources to
 
 Copy them to /opt/apache-tomcat-8.5.14/webapps
 
+## Step 11
+ Check the server.xml file under apache-tomcat-8.5.14/conf folder path. The file contains a connector port. Make sure the port is configured to the required value, like 8080 or 8090. 
+
 ## Step 12
 Start tomcat
 ```
@@ -77,3 +80,25 @@ cd /opt/apache-tomcat-8.5.14/bin
 ./startup.sh
 
 ```
+
+### Step 13 
+
+Hit the browser and check whether the server is up.
+
+   From outside the Debian box : http://<IP address of the Debian VM>:8080/prweb/app 
+
+   From inside Linux box : http://localhost:8080/prweb/app 
+  
+  
+### Step 14
+   The default credential to login to the portal is administrator@pega.com/ (password : install) 
+
+### Step 15
+ Stopping the tomcat , when the required work is done.
+ 
+ ```
+cd /opt/apache-tomcat-8.5.14/bin
+./shutdown.sh
+
+```
+ 
