@@ -1,5 +1,5 @@
 # Pega Personal Edition installation in Debian 
-
+<font color="red">Rough Draft!</font>
 This has been tested in vagrant debian 10 os as well mac book running m1 processor running debian on parallels  as wel tested in rasperberry pi running dietpi
 
 Once the vm is ready the following steps needs to be performed on the vm
