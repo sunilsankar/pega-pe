@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
     #node.vm.synced_folder '.', '/vagrant', :disabled => true
     node.vm.network "private_network", ip: "192.168.20.20"
     node.vm.provider :libvirt do |domain|
-      domain.memory = 8124
+      domain.memory = 8192
       domain.cpus = 2
       domain.nested = true
       domain.storage :file, :size => '100G', :type => 'raw'
