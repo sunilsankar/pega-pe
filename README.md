@@ -85,7 +85,7 @@ cd /opt/apache-tomcat-8.5.14/bin
 
 Hit the browser and check whether the server is up.
 
-   From outside the Debian box : http://<IP address of the Debian VM>:8080/prweb/app 
+   From outside the Debian box : http://{IP address of the Debian VM}:8080/prweb/app 
 
    From inside Linux box : http://localhost:8080/prweb/app 
   
