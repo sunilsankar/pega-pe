@@ -59,6 +59,7 @@ deb () {
     permission java.security.AllPermission;
     };
     " >> /etc/postgresql-common/pljava.policy
+    sudo sed -i "s&^#listen_addresses = .*&listen_addresses =  '*' &g" /etc/postgresql/11/main/postgresql.conf 
     sudo systemctl enable postgresql
     sudo systemctl restart postgresql
   }
