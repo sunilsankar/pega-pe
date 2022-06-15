@@ -17,6 +17,10 @@ pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump
 pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump 
 
 ```
+> **_NOTE:_**  This will improve the performance of restart 
+> ```
+> ```
+
 ## Step 3
 Test the db connectivity and see
 ```
