@@ -75,7 +75,7 @@ tomcat () {
     sudo cp ${ROOTDIR}/setenv.sh /opt/apache-tomcat-8.5.14/bin/
 }
 pljava() {
-    su - postgres -c "psql -f /vagrant/installpljava.sql"
+    su - postgres -c "psql -f ${ROOTDIR}/installpljava.sql"
 
 }
 if [ "$MEM" -ge "4" ]; then
