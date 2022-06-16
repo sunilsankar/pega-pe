@@ -17,7 +17,7 @@ pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump
 pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump 
 
 ```
-> **_NOTE:_**  This will improve the performance of restart 
+> **_NOTE:_**  This will improve the performance of restart and db query
 > ```
 > reindex database postgres;
 > ```
