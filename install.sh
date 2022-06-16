@@ -78,7 +78,6 @@ pljava() {
     cp ${ROOTDIR}/installpljava.sql /tmp
     chmod 777 /tmp/installpljava.sql
     su - postgres -c "psql -f /tmp/installpljava.sql"
-
 }
 if [ "$MEM" -ge "4" ]; then
    validate_user

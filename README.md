@@ -17,6 +17,11 @@ pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump
 pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump 
 
 ```
+> **_NOTE:_**  This will improve the performance of restart and db query
+> ```
+> reindex database postgres;
+> ```
+
 ## Step 3
 Test the db connectivity and see
 ```
@@ -24,7 +29,7 @@ psql -U postgres -h localhost -p 5432 -d postgres
 ```
 ## Step 4 copying the war files
 The war files are present in pega-pe binary when you extract
-PRPC_PE.jar and then you extract PersonalEdition.zip and then under resources tomcat webapps you will find prhelp.war and prweb.war
+PRPC_PE.jar and then you extract PersonalEdition.zip and then under  tomcat webapps folder you will find prhelp.war and prweb.war
 
 Copy them to /opt/apache-tomcat-8.5.14/webapps
 
