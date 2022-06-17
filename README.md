@@ -6,6 +6,7 @@
 BEFORE WE START : 
   
 The following softwares are required: 
+
     — PEGA Personal Edition 8.7 . The default downloaded ZIP folder needs to be unzipped, and kept ready.
     — Parallels Software. Download and install the free version of the software
     — Install Debian on the Parallels Software : use the default version provided in the application, and it downloads and installs it automatically.
@@ -23,6 +24,7 @@ Once the VM is up, go to the terminal inside the VM , and get the IP address by 
 ### Step 2
 
 Now, minimize the VM, go into the Mac Terminal and SSH to the Linux VM using the command :
+
     ssh parallels@<IP Address>
 
 You will be prompted for password. This password will be the default password set of Parallels ID in Debian VM
@@ -32,7 +34,6 @@ You will be prompted for password. This password will be the default password se
 Install GIT on the VM , by the below set of commands : 
 
   sudo apt update
-
   sudo apt install git
 
 ### Step 4
