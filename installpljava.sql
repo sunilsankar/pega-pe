@@ -1,4 +1,5 @@
-CREATE EXTENSION pljava;
+ ALTER USER postgres with password 'postgres';
+ CREATE EXTENSION pljava;
  CREATE FUNCTION getsysprop(VARCHAR)
  RETURNS VARCHAR
  AS 'java.lang.System.getProperty'
