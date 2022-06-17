@@ -1,104 +1,153 @@
 # Pega Personal Edition installation in Debian 
 
-This has been tested in vagrant debian 10 os as well mac book running m1 processor running debian on parallels  as wel tested in rasperberry pi running dietpi
+ PLEASE NOTE : The following approach has been tested in vagrant Debian 10 OS as well a MacBook running m1 processor. The laptop runs DebianOS on the Parallels software. This has also been tested in Raspberry Pi running DietPi, a highly optimised version of the DebianOS.
 
-Once the vm is ready the following steps needs to be performed on the vm
-## Step 1
-if it is running on rasperberry pi or mac m1 . We need to edit install.sh 
-to
-```
-pljava.libjvm_location = '/usr/lib/jvm/java-11-openjdk-arm64/lib/server/libjvm.so'
-```
-If it is x86 Architecture then this line needs to be
-```
-pljava.libjvm_location = '/usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so'
-```
-## Step 2
-Run install.sh
-
-## Step 3
-Copy the installsqljava.sql from repo directory to /var/lib/postgresql
-
-Change permission to postgres and then switch user as postgres and this command
-
-```
-psql -f installsqljava.sql
-```
-## Step 4
-Extract the PE Zip directory. You will see a folder called data and under this you will find two dump files. Copy them to /var/lib/postgresql and change the permission to postgres
-
-Switch user as postgres and run the below commands
-
-```
-pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump 
-pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump 
-
-```
-## Step 5
-Currently postgres password is not set .Switch user as postgres and run the below command
-
-```
-ALTER USER postgres with password 'postgres';
-```
-## Step 6 
-Test the db connectivity and see
-```
-psql -U postgres -h localhost -p 5432 -d postgres
-```
-
-## Step 7 - Configure Tomcat
-copy the downloaded apache 8.5.14 to /opt
-```
-wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.14/bin/apache-tomcat-8.5.14.tar.gz 
-```
-Extract tomcat
-```
-cd /opt
-tar -zxvf apache-tomcat-8.5.14.tar.gz
-```
-## Step8 
-Replace the content in conf directory in this gitrepo in apache-tomcat-8.5.14/conf
-
-## Step 9
-Copy the setenv.sh from repo to bin directory in apache-tomcat-8.5.14
-
-## Step 10
-Copy the postgresql-42.3.6.jar from repo to lib directory in apache-tomcat-8.5.14
-## Step 11 copying the war files
-The war files are present in pega-pe binary when you extract
-PRPC_PE.jar and then you extract PersonalEdition.zip and then under resources tomcat webapps you will find prhelp.war and prweb.war
-
-Copy them to /opt/apache-tomcat-8.5.14/webapps
-
-## Step 11
- Check the server.xml file under apache-tomcat-8.5.14/conf folder path. The file contains a connector port. Make sure the port is configured to the required value, like 8080 or 8090. 
-
-## Step 12
-Start tomcat
-```
-cd /opt/apache-tomcat-8.5.14/bin
-./startup.sh
-
-```
-
-### Step 13 
-
-Hit the browser and check whether the server is up.
-
-   From outside the Debian box : http://{IP address of the Debian VM}:8080/prweb/app 
-
-   From inside Linux box : http://localhost:8080/prweb/app 
+BEFORE WE START : 
   
+The following softwares are required: 
+    — PEGA Personal Edition 8.7 . The default downloaded ZIP folder needs to be unzipped, and kept ready.
+    — Parallels Software. Download and install the free version of the software
+    — Install Debian on the Parallels Software : use the default version provided in the application, and it downloads and installs it automatically.
+
+The PEGA server would need at least 8GB of RAM to function, and 12 GB for optimal performance.  We also need to first install Parallels and then install a Debian Linux GNU box on Parallels software. Both are available for free, and very easy to setup. Once the Virtual Machine (VM) is setup, shut it down, go to Configuration —> Hardware and allocate either 8GB or 12GB RAM to it. Strong recommendation here is to use 12GB RAM for this box.
+
+Once the vm is ready the following steps needs to be performed on the VM :
+
+
+
+### Step 1
+
+Once the VM is up, go to the terminal inside the VM , and get the IP address by executing the command ip a. 
+
+### Step 2
+
+Now, minimize the VM, go into the Mac Terminal and SSH to the Linux VM using the command :
+    ssh parallels@<IP Address>
+
+You will be prompted for password. This password will be the default password set of Parallels ID in Debian VM
+
+### Step 3
+
+Install GIT on the VM , by the below set of commands : 
+
+  sudo apt update
+
+  sudo apt install git
+
+### Step 4
+ 
+Now run the below git command to clone the required script.
+
+git clone https://github.com/sunilsankar/pega-pe.git
+
+Now go inside the pega-pe folder, and execute the install script using the below set of commands : 
+
+cd pega-pe
+
+sudo su
+
+sh install.sh
+
+
+### Step 5
+
+Now, before any further steps are taken , go to the PEGA Personal Edition folder. Inside the data folder, there should 2 .dump folders. First , create a Terminal session within Macbook, and then copy the 2 folders into the newly created VM using the below commands : 
+
+  cd Downloads/117149_PE_8.7/data
+
+  scp -r *.dump parallels@<IP Address>:
+
+
+### Step 6
+
+Switch to root :
+   sudo su -
+
+Move the folders into  the required folders: 
+
+   mv /home/parallels/*.dump /var/lib/postgresql 
+
+Provide required access to the postgres user
+
+  chown -R postgres:postgres /var/lib/postgresql/
+
+
+Switch user to postgres : 
+
+su - postgres
+
+verify that you are in the required folder by doing a pwd and checking that the folder is indeed  /var/lib/postgresql 
+
+### Step 7
+
+  pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump 
+  pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump 
+
+Now, the below step is optional, but would provide a significant improvement in performance.
+
+  psql
   
-### Step 14
-   The default credential to login to the portal is administrator@pega.com/ (password : install) 
+  reindex database postgres;
 
-### Step 15
- Stopping the tomcat , when the required work is done.
- 
- ```
-cd /opt/apache-tomcat-8.5.14/bin
-./shutdown.sh
 
-```
- 
+### Step 8
+
+Test the db connectivity and verify if the server is starting up correctly :
+
+  psql -U postgres -h localhost -p 5432 -d postgres
+
+
+### Step 9
+
+Now, before any other steps are taken on the VM,  inspect the Personal Edition zip folder. It contains a JAR file known as PRPC_PE.jar. Go to the same folder as the JAR file, and execute the below steps : 
+
+
+    unzip PRPC_PE.jar
+
+   unzip PersonalEdition.zip
+
+  (On the 2nd command , you might get a question like this : 
+
+replace META-INF/MANIFEST.MF? [y]es, [n]o, [A]ll, [N]one, [r]ename: 
+
+  Press Y and continue.)
+
+
+
+### Step 10
+
+In the same path as before, go inside tomcat/webapps folder. There are 
+
+
+scp -r *.war parallels@<IP Address>:
+
+The above command moves the file to the home folder. Now from there, move the files to the required folder, which is inside the tomcat application installed in Step 4
+
+  sudo su -
+
+  mv /home/parallels/*.war /opt/apache-tomcat-8.5.14/webapps
+
+
+
+### Step 11
+
+Final Step !!! 
+
+   Close all terminals just to be sure.  Then SSH from Macbook terminal to the Debian VM, as shown in Step 2
+
+Now, navigate to the required folder , and start the tomcat as shown below : 
+
+  sudo su -
+  cd /opt/apache-tomcat-8.5.14/bin
+  ./startup.sh
+
+You can optionally tail the logs by the below steps : 
+
+  cd ../logs
+  tail -f catalina.out
+
+Once the server is up, go to this URL : http://<IP Address>:/prweb.
+
+The server should be up !
+
+To shut down the server , simply execute the shutdown.sh in the same method as given above in step 11.
