@@ -103,8 +103,7 @@ Now, before any other steps are taken on the VM,  inspect the Personal Edition z
 
 
     unzip PRPC_PE.jar
-
-   unzip PersonalEdition.zip
+    unzip PersonalEdition.zip
 
   (On the 2nd command , you might get a question like this : 
 
