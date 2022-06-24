@@ -1,5 +1,5 @@
 # Pega Personal Edition installation in Debian 
-
+If it is useful to you, you can click on the ```Star``` in the upper right corner of this repo to show your support.
 
  PLEASE NOTE : The following approach has been tested in vagrant Debian 10 OS as well a MacBook running m1 processor. The laptop runs DebianOS on the Parallels software. This has also been tested in Raspberry Pi running DietPi, a highly optimised version of the DebianOS.
 
