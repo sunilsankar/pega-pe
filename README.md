@@ -15,6 +15,11 @@ The PEGA server would need at least 8GB of RAM to function, and 12 GB for optima
 
 Once the vm is ready the following steps needs to be performed on the VM :
 
+> **_NOTE:_** 
+> Please refer to the Video before you start the below steps
+> 
+>[![Install PEGA Personal Edition 8.7 in MacOS](https://img.youtube.com/vi/R_jwYmy9k58/0.jpg)](https://www.youtube.com/watch?v=R_jwYmy9k58)
+
 
 
 ### Step 1
