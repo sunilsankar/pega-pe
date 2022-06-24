@@ -100,7 +100,7 @@ Now, the below step is optional, but would provide a significant improvement in 
 
 ### Step 8
 
-Test the db connectivity and verify if the server is starting up correctly :
+Test the db connectivity and verify if the server is starting up correctly.The password is **postgres** 
 
     psql -U postgres -h localhost -p 5432 -d postgres
 
