@@ -188,8 +188,10 @@ Unable to load phase 2 bootstrap class: com.pega.pegarules.internal.bootstrap.ph
         at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
         at java.base/java.lang.Thread.run(Thread.java:829)
 ```
-We need to run the below command to restore the dump file again
-``
+We need to run the below command to restore the dump file again.
+
+
+```
  pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump --clean
  pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump --clean
-``
+```
