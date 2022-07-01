@@ -159,3 +159,37 @@ Once the server is up, go to this URL :
 The server should be up !
 
 To shut down the server , simply execute the shutdown.sh script in the same method as given above in step 11.
+
+## Troubleshooting
+Incase if you see errors during startup it is due to the dump files not loaded properly into the database
+```
+Unable to load phase 2 bootstrap class: com.pega.pegarules.internal.bootstrap.phase2.PRBootstrapImpl
+01-Jul-2022 03:23:49.175 SEVERE [localhost-startStop-1] com.pega.pegarules.internal.bootstrap.PRBootstrap. Error initializing PRAppLoader
+ java.lang.ClassNotFoundException: com.pega.pegarules.internal.bootstrap.phase2.PRBootstrapImpl
+        at com.pega.pegarules.internal.bootstrap.PRMiniLoader.loadClass(PRMiniLoader.java:378)
+        at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
+        at com.pega.pegarules.internal.bootstrap.PRBootstrap.loadPhase2BootstrapClass(PRBootstrap.java:733)
+        at com.pega.pegarules.internal.bootstrap.PRBootstrap.checkForStartup(PRBootstrap.java:676)
+        at com.pega.pegarules.internal.bootstrap.PRBootstrap.invokeMethodPropagatingThrowable(PRBootstrap.java:427)
+        at com.pega.pegarules.boot.internal.extbridge.AppServerBridgeToPega.invokeMethodPropagatingThrowable(AppServerBridgeToPega.java:225)
+        at com.pega.pegarules.boot.internal.extbridge.AppServerBridgeToPega.invokeMethod(AppServerBridgeToPega.java:274)
+        at com.pega.pegarules.internal.web.servlet.WebAppLifeCycleListenerBoot.contextInitialized(WebAppLifeCycleListenerBoot.java:92)
+        at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4745)
+        at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5207)
+        at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+        at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:752)
+        at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:728)
+        at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:734)
+        at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:952)
+        at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:1823)
+        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+        at java.base/java.lang.Thread.run(Thread.java:829)
+```
+We need to run the below command to restore the dump file again
+``
+ pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v sqlj.dump --clean
+ pg_restore -U postgres --disable-triggers -d postgres -O -j 2 -v pega.dump --clean
+``
