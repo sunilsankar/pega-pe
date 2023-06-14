@@ -154,7 +154,7 @@ You can optionally tail the logs by the below steps :
 
 Once the server is up, go to this URL : 
     
-    http://<IP Address>:/prweb.
+    http://<IP Address>:8080/prweb.
 
 The server should be up !
 
