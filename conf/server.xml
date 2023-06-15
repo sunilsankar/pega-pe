@@ -68,7 +68,17 @@
     -->
     <Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="9443" />
+               redirectPort="8443"
+               secure="true"
+               xpoweredBy="false"  />
+   <Connector SSLEnabled="true"
+    ciphers="${nio-ssl.cipher.list}"
+    port="8443"
+                   redirectPort="8443"
+                   sslProtocol="TLS"
+                   sslEnabledProtocols="TLSv1.2"
+       SSLCertificateFile="/opt/apache-tomcat-8.5.14/conf/example.crt"
+                   SSLCertificateKeyFile="/opt/apache-tomcat-8.5.14/conf/example.key"/>    
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
